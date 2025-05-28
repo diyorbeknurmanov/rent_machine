@@ -1,0 +1,17 @@
+const categoryRouter = require("./category.routes");
+const regionRouter = require("./region.routes");
+const districtRouter = require("./district.routes");
+const commissionRouter = require("./commission.routes");
+const statusRouter = require("./status.routes");
+const user_router = require("./user.routes");
+const user_address = require("./user_addres.routes");
+const router = require("express").Router();
+
+router.use("/category", categoryRouter);
+router.use("/region", regionRouter);
+router.use("/district", districtRouter);
+router.use("/commission", commissionRouter);
+router.use("/status", statusRouter);
+router.use("/user", user_router);
+router.use("/user-address", user_address);
+module.exports = router;
