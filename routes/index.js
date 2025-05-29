@@ -5,6 +5,8 @@ const commissionRouter = require("./commission.routes");
 const statusRouter = require("./status.routes");
 const user_router = require("./user.routes");
 const user_address = require("./user_addres.routes");
+const machine_router = require("./machine.routes");
+const image_router = require("./image.routes");
 const router = require("express").Router();
 
 router.use("/category", categoryRouter);
@@ -14,4 +16,6 @@ router.use("/commission", commissionRouter);
 router.use("/status", statusRouter);
 router.use("/user", user_router);
 router.use("/user-address", user_address);
+router.use("/machine", machine_router);
+router.use("/image", image_router);
 module.exports = router;

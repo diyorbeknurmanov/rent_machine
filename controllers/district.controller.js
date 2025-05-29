@@ -1,20 +1,44 @@
+const { model } = require("../config/db");
 const { sendErrorResponse } = require("../helpers/send_error_response");
 const District = require("../models/district.model");
+const Machine = require("../models/machine.model");
+const Region = require("../models/region.model");
 
 const create = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, regionId } = req.body;
 
-    const newData = await District.create({ name });
+    const region = await Region.findByPk(regionId);
+    if (!region) {
+      return sendErrorResponse(
+        { message: "bunday region mavjud emas" },
+        res,
+        400
+      );
+    }
+
+    const newData = await District.create({
+      message: "district added",
+      name,
+      regionId,
+    });
     res.status(201).send({ message: "New District Added", newData });
   } catch (error) {
-    sendErrorResponse(error, res);
+    sendErrorResponse(error, res, 400);
   }
 };
 
 const getAll = async (req, res) => {
   try {
-    const data = await District.findAll({});
+    const data = await District.findAll({
+      include: [
+        { model: Region, attributes: ["name"] },
+        {
+          model: Machine,
+          attributes: ["name", "price_per_hour", "description"],
+        },
+      ],
+    });
     res.status(201).send(data);
   } catch (error) {
     sendErrorResponse(error, res);
@@ -24,7 +48,15 @@ const getAll = async (req, res) => {
 const getOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const data = await District.findByPk(id);
+    const data = await District.findByPk(id, {
+      include: [
+        { model: Region, attributes: ["name"] },
+        {
+          model: Machine,
+          attributes: ["name", "price_per_hour", "description"],
+        },
+      ],
+    });
     res.status(201).send(data);
   } catch (error) {
     sendErrorResponse(error, res);
