@@ -7,8 +7,15 @@ const user_router = require("./user.routes");
 const user_address = require("./user_addres.routes");
 const machine_router = require("./machine.routes");
 const image_router = require("./image.routes");
+const role_router = require("./role.routes");
+const user_role_router = require("./user_role.routes");
+const auth_router = require("./auth.routes");
+const contract_router = require("./contract.routes");
+const payment_router = require("./payment.routes");
+const reiws_router = require("./riews.routes");
 const router = require("express").Router();
 
+router.use("/auth", auth_router);
 router.use("/category", categoryRouter);
 router.use("/region", regionRouter);
 router.use("/district", districtRouter);
@@ -18,4 +25,10 @@ router.use("/user", user_router);
 router.use("/user-address", user_address);
 router.use("/machine", machine_router);
 router.use("/image", image_router);
+router.use("/role", role_router);
+router.use("/user-role", user_role_router);
+router.use("/contract", contract_router);
+router.use("/payment", payment_router);
+router.use("/review", reiws_router);
+
 module.exports = router;

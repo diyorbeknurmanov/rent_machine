@@ -1,4 +1,5 @@
 const { sendErrorResponse } = require("../helpers/send_error_response");
+const Role = require("../models/roles.model");
 const UserAddress = require("../models/user.address");
 const User = require("../models/user.models");
 const bcrypt = require("bcrypt");
@@ -35,7 +36,12 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const data = await User.findAll({});
+    const data = await User.findAll({
+      include: [
+        { model: UserAddress, attributes: ["name", "address"] },
+        { model: Role, attributes: ["name"], through:{attributes:[]} },
+      ],
+    });
     res.status(201).send(data);
   } catch (error) {
     sendErrorResponse(error, res, 400);

@@ -1,22 +1,26 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
 
-const Commission = sequelize.define(
-  "commission",
+const Role = sequelize.define(
+  "role",
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    percent: {
-      type: DataTypes.DECIMAL(10, 2),
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+    description: {
+      type: DataTypes.STRING(100),
     },
   },
   {
     freezeTableName: true,
-    timestamps: false,
   }
 );
 
-module.exports = Commission;
+module.exports = Role;
